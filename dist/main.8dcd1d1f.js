@@ -5,6 +5,8 @@
 //
 // anything defined in a previous bundle is accessed via the
 // orig method which is the require for previous bundles
+
+// eslint-disable-next-line no-global-assign
 parcelRequire = (function (modules, cache, entry, globalName) {
   // Save the require from previous bundle to this closure if any
   var previousRequire = typeof parcelRequire === 'function' && parcelRequire;
@@ -40,7 +42,6 @@ parcelRequire = (function (modules, cache, entry, globalName) {
       }
 
       localRequire.resolve = resolve;
-      localRequire.cache = {};
 
       var module = cache[name] = new newRequire.Module(name);
 
@@ -75,16 +76,8 @@ parcelRequire = (function (modules, cache, entry, globalName) {
     }, {}];
   };
 
-  var error;
   for (var i = 0; i < entry.length; i++) {
-    try {
-      newRequire(entry[i]);
-    } catch (e) {
-      // Save first error but execute all entries
-      if (!error) {
-        error = e;
-      }
-    }
+    newRequire(entry[i]);
   }
 
   if (entry.length) {
@@ -109,55 +102,36 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   // Override the current require with this new one
-  parcelRequire = newRequire;
-
-  if (error) {
-    // throw error from earlier, _after updating parcelRequire_
-    throw error;
-  }
-
   return newRequire;
 })({"epB2":[function(require,module,exports) {
 var $siteList = $('.siteList');
 var $lastLi = $siteList.find('li.last');
 var x = localStorage.getItem('x');
 var xObject = JSON.parse(x);
-var hashMap = xObject || [{
-  logo: 'A',
-  url: 'https://www.acfun.cn'
-}, {
-  logo: 'B',
-  url: 'https://www.bilibili.com'
-}];
-
+var hashMap = xObject || [{ logo: 'A', url: 'https://www.acfun.cn' }, { logo: 'B', url: 'https://www.bilibili.com' }];
 var simplifyUrl = function simplifyUrl(url) {
   return url.replace('https://', '').replace('http://', '').replace('www.', '').replace(/\/.*/, '');
 };
-
 var render = function render() {
   $siteList.find('li:not(.last)').remove();
   hashMap.forEach(function (node, index) {
-    var $li = $("<li>\n        <div class=\"site\">\n            <div class=\"logo\">".concat(node.logo, "</div>\n            <div class=\"link\">").concat(simplifyUrl(node.url), "</div>\n            <div class=\"close\">\n            <svg class=\"icon\" aria-hidden=\"true\">\n                <use xlink:href=\"#icon-close\"></use>\n              </svg></div>\n            </div>\n        </li>")).insertBefore($lastLi);
+    var $li = $('<li>\n        <div class="site">\n            <div class="logo">' + node.logo + '</div>\n            <div class="link">' + simplifyUrl(node.url) + '</div>\n            <div class="close">\n            <svg class="icon" aria-hidden="true">\n                <use xlink:href="#icon-close"></use>\n              </svg></div>\n            </div>\n        </li>').insertBefore($lastLi);
     $li.on('click', function () {
       window.open(node.url);
     });
     $li.on('click', '.close', function (e) {
       e.stopPropagation(); // 阻止冒泡
-
       hashMap.splice(index, 1);
       render();
     });
   });
 };
-
 render();
 $('.addButton').on('click', function () {
   var url = window.prompt('请问你要添加的网址是啥？');
-
   if (url.indexOf('http') !== 0) {
     url = 'https://' + url;
   }
-
   console.log(url);
   hashMap.push({
     logo: simplifyUrl(url)[0].toUpperCase(),
@@ -182,4 +156,4 @@ $(document).on('keypress', function (e) {
   }
 });
 },{}]},{},["epB2"], null)
-//# sourceMappingURL=main.92508f25.js.map
+//# sourceMappingURL=main.8dcd1d1f.map
