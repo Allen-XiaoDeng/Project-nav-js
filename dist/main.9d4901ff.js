@@ -106,8 +106,8 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 })({"epB2":[function(require,module,exports) {
 var $siteList = $('.siteList');
 var $lastLi = $siteList.find('li.last');
-var x = localStorage.getItem('x');
-var xObject = JSON.parse(x);
+var storage = localStorage.getItem('storage');
+var xObject = JSON.parse(storage);
 var hashMap = xObject || [{ logo: 'A', url: 'https://www.acfun.cn' }, { logo: 'B', url: 'https://www.bilibili.com' }];
 var simplifyUrl = function simplifyUrl(url) {
   return url.replace('https://', '').replace('http://', '').replace('www.', '').replace(/\/.*/, '');
@@ -143,17 +143,16 @@ $('.addButton').on('click', function () {
 
 window.onbeforeunload = function () {
   var string = JSON.stringify(hashMap);
-  localStorage.setItem('x', string);
+  localStorage.setItem('storage', string);
 };
 
-$(document).on('keypress', function (e) {
-  var key = e.key;
-
-  for (var i = 0; i < hashMap.length; i++) {
-    if (hashMap[i].logo.toLowerCase() === key) {
-      window.open(hashMap[i].url);
-    }
-  }
-});
+// $(document).on('keypress', (e) => {
+//   const { key } = e;
+//   for (let i = 0; i < hashMap.length; i++) {
+//     if (hashMap[i].logo.toLowerCase() === key) {
+//       window.open(hashMap[i].url);
+//     }
+//   }
+// });
 },{}]},{},["epB2"], null)
-//# sourceMappingURL=main.8dcd1d1f.map
+//# sourceMappingURL=main.9d4901ff.map
