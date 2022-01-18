@@ -1,7 +1,7 @@
 const $siteList = $('.siteList');
 const $lastLi = $siteList.find('li.last');
-const x = localStorage.getItem('x');
-const xObject = JSON.parse(x);
+const storage = localStorage.getItem('storage');
+const xObject = JSON.parse(storage);
 const hashMap = xObject || [
   { logo: 'A', url: 'https://www.acfun.cn' },
   { logo: 'B', url: 'https://www.bilibili.com' },
@@ -53,14 +53,14 @@ $('.addButton').on('click', () => {
 
 window.onbeforeunload = () => {
   const string = JSON.stringify(hashMap);
-  localStorage.setItem('x', string);
+  localStorage.setItem('storage', string);
 };
 
-$(document).on('keypress', (e) => {
-  const { key } = e;
-  for (let i = 0; i < hashMap.length; i++) {
-    if (hashMap[i].logo.toLowerCase() === key) {
-      window.open(hashMap[i].url);
-    }
-  }
-});
+// $(document).on('keypress', (e) => {
+//   const { key } = e;
+//   for (let i = 0; i < hashMap.length; i++) {
+//     if (hashMap[i].logo.toLowerCase() === key) {
+//       window.open(hashMap[i].url);
+//     }
+//   }
+// });
